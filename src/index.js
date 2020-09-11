@@ -1,56 +1,32 @@
 import './style.css';
-import imgPine from './assets/SYM4.png';
-import imgLemon from './assets/SYM5.png';
-import imgApple from './assets/SYM6.png';
-import imgStrawberry from './assets/SYM3.png';
-import imgGrapes from './assets/SYM7.png';
-import imgWild from './assets/SYM1.png';
+
 import backImg from './assets/BG.png';
 import spinGrayImg from './assets/BTN_Spin_d.png';
 import spinImg from './assets/BTN_Spin.png';
-let symbols = [
-  {
-    name: 'pineapple',
-    image: imgPine,
-  },
-  {
-    name: 'strawberry',
-    image: imgStrawberry,
-  },
-  {
-    name: 'lemon',
-    image: imgLemon,
-  },
-  {
-    name: 'grapes',
-    image: imgGrapes,
-  },
-  {
-    name: 'apple',
-    image: imgApple,
-  },
-  {
-    name: 'wild',
-    image: imgWild,
-  },
-];
+
+
+
 
 class Game {
-  constructor() {
+  constructor(data) {
     if (typeof Game.instance === 'object') {
       return Game.instance;
     }
-    this.cash = 100;
+    if(data){
+    this.data = data; 
+    }
+    this.coins = 100;
     this.win = '';
+    this.amountOfWins = 0;
     Game.instance = this;
     return this;
   }
 
-  getCash() {
-    return this.cash;
+  getCoins() {
+    return this.coins;
   }
-  spendCash() {
-    return (this.cash -= 10);
+  spendCoins() {
+    return (this.coins -= 10);
   }
 
   toggleStartButton() {
@@ -66,14 +42,17 @@ class Game {
   }
 
   start() {
+    clearTimeout(timeout)
     this.toggleStartButton();
     let gridContainer = document.querySelector('.grid-container');
-    function generate() {
+    const generate=()=> {
+      console.log(this)
+
       let div = document.createElement('div');
       div.classList.add('container');
       for (let i = 1; i <= 9; i++) {
         let slot = document.createElement('div');
-        let symbol = symbols[Math.floor(Math.random() * Math.floor(6))];
+        let symbol = this.data.slots[Math.floor(Math.random() * Math.floor(6))];
         slot.id = `${symbol.name}`;
         slot.classList.add('slot');
         slot.classList.add(`slot${i}`);
@@ -105,6 +84,7 @@ class Game {
     gridContainer.innerHTML = generate().innerHTML;
     this.checkWin();
     let timeout = setTimeout(this.toggleStartButton, 1000);
+    
   }
 
   checkWin() {
@@ -169,20 +149,25 @@ class Game {
     console.log(result, this.win);
   }
 
+  showWin(){
+
+  }
+
   loading() {
+    console.log(this.data.apple)
     let root = document.getElementById('root');
     root.innerHTML = `
      <div class="container">
       <div class='grid-container'>
-      <div class="slot slot1"><img src = ${symbols[2].image} class='slotImg'></div>
-      <div class="slot slot2"><img src = ${symbols[5].image} class='slotImg'></div>
-      <div class="slot slot3"><img src = ${symbols[1].image} class='slotImg'></div>
-      <div class="slot slot4"><img src = ${symbols[1].image} class='slotImg'></div>
-      <div class="slot slot5"><img src = ${symbols[0].image} class='slotImg'></div>    
-      <div class="slot slot6"><img src = ${symbols[4].image} class='slotImg'></div>   
-      <div class="slot slot7"><img src = ${symbols[2].image} class='slotImg'></div>
-      <div class="slot slot8"><img src = ${symbols[3].image} class='slotImg'></div>    
-      <div class="slot slot9"><img src = ${symbols[0].image} class='slotImg'></div>    
+      <div class="slot slot1"><img src = ${this.data.slots[2].image} class='slotImg'></div>
+      <div class="slot slot2"><img src = ${this.data.slots[5].image} class='slotImg'></div>
+      <div class="slot slot3"><img src = ${this.data.slots[1].image} class='slotImg'></div>
+      <div class="slot slot4"><img src = ${this.data.slots[1].image} class='slotImg'></div>
+      <div class="slot slot5"><img src = ${this.data.slots[0].image} class='slotImg'></div>    
+      <div class="slot slot6"><img src = ${this.data.slots[4].image} class='slotImg'></div>   
+      <div class="slot slot7"><img src = ${this.data.slots[2].image} class='slotImg'></div>
+      <div class="slot slot8"><img src = ${this.data.slots[3].image} class='slotImg'></div>    
+      <div class="slot slot9"><img src = ${this.data.slots[0].image} class='slotImg'></div>    
       </div>
       <button class='start-button'></button>
       </div>
@@ -198,9 +183,11 @@ class Game {
   }
 }
 
-setTimeout(() => {
-  document.querySelector('.initial').classList.remove('initial');
+fetch('./public/assets.json')
+  .then(response => response.json())
+  .then((data) => {
+    document.querySelector('.initial').classList.remove('initial');
+    let game = new Game(data);
+    game.loading();
+  })
 
-  let A = new Game();
-  A.loading();
-}, 500);

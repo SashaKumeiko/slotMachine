@@ -1,0 +1,29 @@
+{
+  "slots": [
+    {
+      "name": "pineapple",
+      "image": "./public/SYM4.png"
+    },
+    {
+      "name": "strawberry",
+      "image":"./public/SYM3.png"
+    },
+    {
+      "name": "lemon",
+      "image": "./public/SYM5.png"
+    },
+    {
+      "name": "grapes",
+      "image": "./public/SYM7.png"
+    },
+    {
+      "name": "apple",
+      "image": "./public/SYM6.png"
+    },
+    {
+      "name": "wild",
+      "image":  "./public/SYM1.png"
+    }
+
+  ]
+}
