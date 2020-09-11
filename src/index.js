@@ -1,19 +1,12 @@
 import './style.css';
 
-import backImg from './assets/BG.png';
-import spinGrayImg from './assets/BTN_Spin_d.png';
-import spinImg from './assets/BTN_Spin.png';
-
-
-
-
 class Game {
   constructor(data) {
     if (typeof Game.instance === 'object') {
       return Game.instance;
     }
-    if(data){
-    this.data = data; 
+    if (data) {
+      this.data = data;
     }
     this.coins = 100;
     this.win = '';
@@ -33,20 +26,20 @@ class Game {
     let button = document.querySelector('.start-button');
     if (button.disabled) {
       button.disabled = false;
-      button.style.backgroundImage = `url(${spinImg})`;
+      console.log('this', this.data.spins[0].image);
+      button.style.backgroundImage = `url(${this.data.spins[0].image})`;
     } else {
       button.disabled = true;
-      button.style.backgroundImage = `url(${spinGrayImg})`;
+      button.style.backgroundImage = `url(${this.data.spins[1].image})`;
     }
-    console.log(button);
   }
 
   start() {
-    clearTimeout(timeout)
+    clearTimeout(timeout);
     this.toggleStartButton();
     let gridContainer = document.querySelector('.grid-container');
-    const generate=()=> {
-      console.log(this)
+    const generate = () => {
+      console.log(this);
 
       let div = document.createElement('div');
       div.classList.add('container');
@@ -80,11 +73,10 @@ class Game {
         div.append(slot);
       }
       return div;
-    }
+    };
     gridContainer.innerHTML = generate().innerHTML;
     this.checkWin();
-    let timeout = setTimeout(this.toggleStartButton, 1000);
-    
+    let timeout = setTimeout(this.toggleStartButton.bind(this), 1000);
   }
 
   checkWin() {
@@ -102,7 +94,6 @@ class Game {
     let arr2 = [slot4.id, slot5.id, slot6.id];
     let arr3 = [slot7.id, slot8.id, slot9.id];
     let arrays = [arr1, arr2, arr3];
-    console.log(arrays);
 
     // }
     let result = '';
@@ -149,12 +140,11 @@ class Game {
     console.log(result, this.win);
   }
 
-  showWin(){
-
-  }
+  showWin() {}
 
   loading() {
-    console.log(this.data.apple)
+    clearTimeout(timeLoading)
+    console.log(this.data.apple);
     let root = document.getElementById('root');
     root.innerHTML = `
      <div class="container">
@@ -173,21 +163,22 @@ class Game {
       </div>
       `;
     const container = document.querySelector('.container');
-    container.style.backgroundImage = `url(${backImg})`;
+    container.style.backgroundImage = `url(${this.data.bgs.image})`;
 
     const startButton = document.querySelector('.start-button');
-    startButton.style.backgroundImage = `url(${spinImg})`;
+
+    startButton.style.backgroundImage = `url(${this.data.spins[0].image})`;
     startButton.addEventListener('click', this.start.bind(this));
 
     return;
   }
 }
-
-fetch('./public/assets.json')
-  .then(response => response.json())
-  .then((data) => {
-    document.querySelector('.initial').classList.remove('initial');
-    let game = new Game(data);
-    game.loading();
-  })
-
+let timeLoading = setTimeout(() => {
+  fetch('./public/assets.json')
+    .then((response) => response.json())
+    .then((data) => {
+      document.querySelector('.initial').classList.remove('initial');
+      let game = new Game(data);
+      game.loading();
+    });
+}, 500);

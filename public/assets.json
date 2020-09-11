@@ -1,4 +1,16 @@
 {
+  "bgs": {
+    "name": "back",
+    "image": "./public/BG.png"
+  },
+  "spins": [{
+    "name":"colored",
+    "image":"./public/BTN_Spin.png"
+  },{
+    "name":"dark",
+    "image":"./public/BTN_Spin_d.png"
+  }],
+
   "slots": [
     {
       "name": "pineapple",
@@ -6,7 +18,7 @@
     },
     {
       "name": "strawberry",
-      "image":"./public/SYM3.png"
+      "image": "./public/SYM3.png"
     },
     {
       "name": "lemon",
@@ -22,8 +34,7 @@
     },
     {
       "name": "wild",
-      "image":  "./public/SYM1.png"
+      "image": "./public/SYM1.png"
     }
-
   ]
 }
