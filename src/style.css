@@ -1,5 +1,23 @@
 body {
   margin: 0 auto;
+
+  
+}
+
+.initial {
+  background: black;
+  height:100%;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  height:100vh;
+}
+
+.initial-text {
+  color:white;
+  font-style: 36px;
+  margin: auto;
+  display: inline-block;
 }
 
 .slotImg {
@@ -19,6 +37,7 @@ body {
   object-fit: cover;
   max-width: 960px;
   margin: auto;
+
 }
 
 .grid-container {
@@ -34,6 +53,7 @@ body {
 .slot {
   display: inline-block;
   text-align: center;
+
 }
 
 .start-button {
@@ -66,9 +86,7 @@ body {
 }
 
 @media only screen and (min-width: 960px) {
-  .container {
-    /* background-size: cover;  */
-  }
+  
   .grid-container {
     /* height:900px;/ */
     grid-column-gap: 70px;
@@ -80,5 +98,30 @@ body {
   .start-button {
     width: 98px;
     height: 98px;
+  }
+}
+
+.animation1 {
+  animation-name: cssAnimation;
+  animation-duration:400ms;
+}
+.animation2 {
+  animation-name: cssAnimation;
+  animation-duration:400ms;
+  animation-delay:200ms;
+}
+
+.animation3 {
+  animation-name: cssAnimation;
+  animation-duration:400ms;
+  animation-delay:400ms;
+
+}
+@keyframes cssAnimation {
+  from {
+    -webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(0,0);
+  }
+  to {
+    -webkit-transform: rotate(0deg) scale(1) skew(0deg) translate(0,500px);
   }
 }
