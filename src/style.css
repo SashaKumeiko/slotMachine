@@ -21,26 +21,29 @@ body {
 }
 
 .slotImg {
-  width: 50px;
-  height: 37px;
+  width: 75px;
+  height: 50px;
 }
 
 .container {
+  min-height: 536px;
+
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  min-height: 536px;
   background-position: center;
   object-fit: cover;
-  max-width: 960px;
+  /* max-width: 960px; */
   margin: auto;
 
 }
 
 .grid-container {
+  min-height: 536px;
+
   flex: 0.7;
   display: grid;
   grid-template-columns: auto auto auto;
@@ -58,8 +61,8 @@ body {
 
 .start-button {
   background: darkgray;
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   color: green;
   border-radius: 50%;
@@ -68,6 +71,23 @@ body {
   right: 4%;
   transform: translate(0, -50%);
   background-size: contain;
+}
+
+.stats {
+  padding: 5px;
+  color:yellow;
+  text-transform: uppercase;
+  display:flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: start;
+  height:50px;
+  width:50px;
+  position: absolute;
+  top:78%;
+  right:4%;
+  background: rgb(45, 87, 110);
+  font-size: 0.5rem;
 }
 
 @media only screen and (min-width: 576px) {
@@ -83,10 +103,23 @@ body {
     width: 78px;
     height: 78px;
   }
+
+}
+@media only screen and (min-width: 768px) {
+  .stats {
+    width:120px;
+    height:80px;
+    right:4%;
+    font-size: 1.5rem;
+
+  }
 }
 
 @media only screen and (min-width: 960px) {
-  
+  .container {
+    background-size: cover;
+  }
+
   .grid-container {
     /* height:900px;/ */
     grid-column-gap: 70px;
@@ -99,7 +132,11 @@ body {
     width: 98px;
     height: 98px;
   }
-}
+
+  .stats {
+    height:80px;
+    width:120px;
+  }}
 
 .animation1 {
   animation-name: cssAnimation;
