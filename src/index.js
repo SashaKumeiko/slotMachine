@@ -16,13 +16,6 @@ class Game {
     return this;
   }
 
-  getCoins() {
-    return this.coins;
-  }
-  spendCoins() {
-    return (this.coins -= 10);
-  }
-
   toggleStartButton() {
     let button = document.querySelector('.start-button');
     if (button.disabled) {
@@ -119,6 +112,9 @@ class Game {
         return true;
       }
     });
+    this.changeStats();
+  }
+  changeStats() {
     if (this.win) {
       this.amountOfWins++;
       this.showWin();
@@ -131,9 +127,10 @@ class Game {
       this.coins == 0;
       this.toggleStartButton();
     }
-    this.setStats();
+    this.renderStats();
   }
-  setStats() {
+
+  renderStats() {
     document.querySelector('.stats').innerHTML = `
     <div>Money: ${this.coins}</div>
     <div>Wins: ${this.amountOfWins} </div>`;
