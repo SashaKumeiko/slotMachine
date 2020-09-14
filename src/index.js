@@ -41,7 +41,6 @@ class Game {
 
     const generate = () => {
       let div = document.createElement('div');
-      // div.classList.add('container');
       for (let i = 1; i <= 9; i++) {
         let slot = document.createElement('div');
         let symbol = this.data.slots[Math.floor(Math.random() * Math.floor(6))];
@@ -209,11 +208,14 @@ class Game {
   }
 }
 let timeLoading = setTimeout(() => {
+
   fetch('./public/assets.json')
     .then((response) => response.json())
     .then((data) => {
+      console.log(data)
       document.querySelector('.initial').classList.remove('initial');
       let game = new Game(data);
       game.loading();
     });
+
 }, 500);
