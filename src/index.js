@@ -39,7 +39,7 @@ class Game {
     this.toggleStartButton();
     let gridContainer = document.querySelector('.grid-container');
 
-    const generate = () => {
+    const generateSlots = () => {
       let div = document.createElement('div');
       for (let i = 1; i <= 9; i++) {
         let slot = document.createElement('div');
@@ -70,7 +70,7 @@ class Game {
       return div;
     };
 
-    gridContainer.innerHTML = generate().innerHTML;
+    gridContainer.innerHTML = generateSlots().innerHTML;
     this.checkWin();
     let timeout = setTimeout(this.toggleStartButton.bind(this), 1000);
   }
@@ -91,63 +91,52 @@ class Game {
     let arr3 = [slot7.id, slot8.id, slot9.id];
     let arrays = [arr1, arr2, arr3];
 
-    let result = '';
-
     this.win = arrays.some((arr) => {
       let line = arr.join('');
       let arrSeparatedByWild = line.split('wild');
       if (arrSeparatedByWild.length == 3) {
-        result = 'win';
         return true;
       } else if (arrSeparatedByWild.length == 2) {
         let index = arr.findIndex((el) => el === 'wild');
         switch (index) {
           case 0:
             if (arr[1] === arr[2]) {
-              result = 'win';
               return true;
-            } else result = 'lost';
+            }
             break;
           case 1:
             if (arr[0] === arr[2]) {
-              result = 'win';
               return true;
-            } else result = 'lost';
+            }
             break;
           case 2:
             if (arr[0] === arr[1]) {
-              result = 'win';
               return true;
-            } else result = 'lost';
+            }
             break;
         }
       } else if (arr[0] === arr[1] && arr[0] === arr[2] && arr[0] != 'wild') {
-        console.log('win 3 same');
-        result = 'win';
         return true;
-      } else {
-        result = 'lost';
       }
     });
-    if (this.win){ 
+    if (this.win) {
       this.amountOfWins++;
       this.showWin();
-      this.coins+=10;
-    }
-    else{
-      this.coins-=5;
+      this.coins += 10;
+    } else {
+      this.coins -= 5;
     }
 
-    console.log(result, this.win);
-    if(this.coins<=0) {this.coins==0; 
-    this.toggleStartButton();}
-    this.setStats()
-    console.log("coins:",this.coins,"wins:",this.amountOfWins)
+    if (this.coins <= 0) {
+      this.coins == 0;
+      this.toggleStartButton();
+    }
+    this.setStats();
   }
-  setStats(){
-    document.querySelector('.stats').innerHTML=`
+  setStats() {
+    document.querySelector('.stats').innerHTML = `
     <div>Money: ${this.coins}</div>
-    <div>Wins: ${this.amountOfWins} </div>`
+    <div>Wins: ${this.amountOfWins} </div>`;
   }
   showWin() {
     clearTimeout(modalTimeout);
@@ -174,7 +163,6 @@ class Game {
 
   loading() {
     clearTimeout(timeLoading);
-    console.log(this.data.apple);
     let root = document.getElementById('root');
     root.innerHTML = `
      <div class="container">
@@ -208,14 +196,11 @@ class Game {
   }
 }
 let timeLoading = setTimeout(() => {
-
   fetch('./public/assets.json')
     .then((response) => response.json())
     .then((data) => {
-      console.log(data)
       document.querySelector('.initial').classList.remove('initial');
       let game = new Game(data);
       game.loading();
     });
-
 }, 500);
