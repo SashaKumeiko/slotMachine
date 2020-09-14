@@ -135,6 +135,7 @@ class Game {
     <div>Money: ${this.coins}</div>
     <div>Wins: ${this.amountOfWins} </div>`;
   }
+  
   showWin() {
     clearTimeout(modalTimeout);
 
@@ -189,9 +190,9 @@ class Game {
     startButton.style.backgroundImage = `url(${this.data.spins[0].image})`;
     startButton.addEventListener('click', this.start.bind(this));
 
-    return;
   }
 }
+
 let timeLoading = setTimeout(() => {
   fetch('./public/assets.json')
     .then((response) => response.json())
